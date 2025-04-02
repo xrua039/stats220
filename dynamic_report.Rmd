@@ -10,6 +10,7 @@ source("exploration.R")
 ```
 
 ```{css}
+# Styling for the report
 body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
@@ -18,10 +19,15 @@ body {
   margin: 0 auto;
   padding: 20px;
 }
+
 h2 {
   color: #2c3e50;
   border-bottom: 2px solid #3498db;
   padding-bottom: 5px;
+}
+
+.center-text {
+  text-align: center;
 }
 img {
   display: block;
@@ -35,12 +41,6 @@ img:hover {
   transform: scale(1.02);
   transition: transform 0.3s ease;
 }
-
-.center-text {
-  text-align: center;
-}
-
-
 ```
 
 ## Auckland Weather
@@ -60,7 +60,7 @@ best_weather <- latest_data %>%
   filter(condition == "Sunny") %>%
   summarise(best_weather = n())
 
-print(plot_condition)
+print(plot_condition)  
 ```
 
 
@@ -75,4 +75,4 @@ The BEST weather to have is `r best_weather$best_weather` sunny days in March!
 Also, it has many `r best_weather$best_weather` sunny days during the month.
 
 
-![](https://media1.tenor.com/m/EpfT1O7OcVYAAAAd/good-morning-sun.gif)
+![sunshine beach](https://media1.tenor.com/m/EpfT1O7OcVYAAAAd/good-morning-sun.gif)
