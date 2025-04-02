@@ -6,6 +6,7 @@ output: html_fragment
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
 
+source("exploration.R")
 ```
 
 ```{css}
@@ -22,13 +23,6 @@ h2 {
   border-bottom: 2px solid #3498db;
   padding-bottom: 5px;
 }
-code {
-  background-color: #f8f9fa;
-  padding: 2px 4px;
-  border-radius: 3px;
-  color: #c7254e;
-}
-
 img {
   display: block;
   max-width: 100%;
@@ -37,21 +31,50 @@ img {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-
 img:hover {
   transform: scale(1.02);
   transition: transform 0.3s ease;
 }
+
+.center-text {
+  text-align: center;
+}
+
+
 ```
 
 ## Auckland Weather
 
 ```{r}
-weathers <- c("sunny", "cloudy", "rainny")
-best_weather <- weathers[1]
+print(plot_condition)
+
+summary_stats <- latest_data %>%
+  summarise(
+    observations = n(),
+    avg_temp = mean(temp, na.rm = TRUE) %>% round(1),
+    min_temp = min(temp, na.rm = TRUE),
+    max_temp = max(temp, na.rm = TRUE),
+    avg_humidity = mean(humidity, na.rm = TRUE) %>% round(1),
+    na_humidity = sum(is.na(humidity))
+  )
+
+best_weather <- latest_data %>%
+  filter(condition == "Sunny") %>%
+  summarise(best_weather = n())
+
 
 ```
 
-The common weather to have is a `r best_weather` of March!
+
+The dataset contains `r summary_stats$observations` observations.
+
+The average temperature is `r summary_stats$avg_temp`°C, with a minimum of `r summary_stats$min_temp`°C and a maximum of `r summary_stats$max_temp`°C.
+
+The average humidity is `r summary_stats$avg_humidity`%, with `r summary_stats$na_humidity` missing humidity records.
+
+The BEST weather to have is `r best_weather$best_weather` sunny days in March!
+
+Also, it has many `r best_weather$best_weather` sunny days during the month.
+
 
 ![](https://media1.giphy.com/media/7DBRNZigHvtaRmw6UE/giphy.gif?cid=6c09b9526dzo0xxktqg53koj6gjj6erqd7jux6j405rt0a1x&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g)
