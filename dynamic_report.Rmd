@@ -5,7 +5,7 @@ output: html_fragment
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
-
+library(tidyverse)
 source("exploration.R")
 ```
 
@@ -46,8 +46,6 @@ img:hover {
 ## Auckland Weather
 
 ```{r}
-print(plot_condition)
-
 summary_stats <- latest_data %>%
   summarise(
     observations = n(),
@@ -62,7 +60,7 @@ best_weather <- latest_data %>%
   filter(condition == "Sunny") %>%
   summarise(best_weather = n())
 
-
+print(plot_condition)
 ```
 
 
@@ -77,4 +75,4 @@ The BEST weather to have is `r best_weather$best_weather` sunny days in March!
 Also, it has many `r best_weather$best_weather` sunny days during the month.
 
 
-![](https://media1.giphy.com/media/7DBRNZigHvtaRmw6UE/giphy.gif?cid=6c09b9526dzo0xxktqg53koj6gjj6erqd7jux6j405rt0a1x&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g)
+![](https://media1.tenor.com/m/EpfT1O7OcVYAAAAd/good-morning-sun.gif)
